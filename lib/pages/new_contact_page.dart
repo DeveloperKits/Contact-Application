@@ -1,4 +1,7 @@
+import 'package:contact_application/models/contact_model.dart';
+import 'package:contact_application/provider/contact_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class NewContactPage extends StatefulWidget {
   const NewContactPage({super.key});
@@ -102,6 +105,18 @@ class _NewContactPageState extends State<NewContactPage> {
       final number = numberController.text;
       final email = emailController.text;
       final address = addressController.text;
+
+      final contact = ContactModel(
+        name: name,
+        mobile: number,
+        email: email,
+        address: address,
+      );
+
+      context.read<ContactProvider>()
+          .addContacts(contact)
+          .then((_) => Navigator.pop(context))
+          .catchError((error){print(error);});
     }
   }
 
