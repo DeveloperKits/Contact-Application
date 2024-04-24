@@ -45,4 +45,12 @@ class DbHelper {
       return ContactModel.fromMap(mapList[index]);
     });
   }
+
+  Future<List<ContactModel>> getFavoriteContacts() async {
+    final db = await _open();
+    final mapList = await db.query(tblContact, where: '$colFavorite = ?', whereArgs: [1]);
+    return List.generate(mapList.length, (index) {
+      return ContactModel.fromMap(mapList[index]);
+    });
+  }
 }
