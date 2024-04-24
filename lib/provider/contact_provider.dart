@@ -8,7 +8,15 @@ class ContactProvider extends ChangeNotifier {
   final db = DbHelper();
 
   Future<int> addContacts(ContactModel contact) async {
-    return await db.insertContact(contact);
+    final id = await db.insertContact(contact);
+    await getContacts();
+    return id;
+  }
+
+  Future<int> updateSingleContactValue(int rowId, String column, dynamic value) async {
+    final id = await db.updateSingleContactValue(rowId, {column: value});
+    await getContacts();
+    return id;
   }
 
   Future<void> getContacts() async {

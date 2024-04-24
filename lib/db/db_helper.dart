@@ -27,6 +27,11 @@ class DbHelper {
     final db = await _open();
     return db.insert(tblContact, contact.toMap());
   }
+  
+  Future<int> updateSingleContactValue(int id, Map<String, dynamic> map) async {
+    final db = await _open();
+    return db.update(tblContact, map, where: '$colId = ?', whereArgs: [id]);
+  }
 
   Future<List<ContactModel>> getContacts() async {
     final db = await _open();

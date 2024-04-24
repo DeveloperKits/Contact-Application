@@ -1,3 +1,4 @@
+import 'package:contact_application/models/contact_model.dart';
 import 'package:contact_application/pages/new_contact_page.dart';
 import 'package:contact_application/provider/contact_provider.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +6,7 @@ import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
- 
+
   static const String routeName = '/';
 
   @override
@@ -28,7 +29,11 @@ class HomePage extends StatelessWidget {
               return ListTile(
                 title: Text(contact.name),
                 trailing: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    final value = contact.favorite ? 0 : 1;
+                    context.read<ContactProvider>()
+                        .updateSingleContactValue(contact.id!, colFavorite, value);
+                  },
                   icon: Icon(contact.favorite ? Icons.favorite : Icons.favorite_border),
                 ),
               );
