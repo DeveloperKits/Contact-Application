@@ -33,6 +33,11 @@ class DbHelper {
     return db.update(tblContact, map, where: '$colId = ?', whereArgs: [id]);
   }
 
+  Future<int> deleteSingleContact(int id) async{
+    final db = await _open();
+    return db.delete(tblContact, where: '$colId = ?', whereArgs: [id]);
+  }
+
   Future<List<ContactModel>> getContacts() async {
     final db = await _open();
     final mapList = await db.query(tblContact);
