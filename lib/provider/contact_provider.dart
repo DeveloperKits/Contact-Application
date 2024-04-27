@@ -13,6 +13,10 @@ class ContactProvider extends ChangeNotifier {
     return id;
   }
 
+  ContactModel getContactFromCache(int id){
+    return contacts.firstWhere((contact) => contact.id == id);
+  }
+
   Future<int> updateSingleContactValue(int rowId, String column, dynamic value) async {
     final id = await db.updateSingleContactValue(rowId, {column: value});
     await getContacts();
@@ -34,4 +38,6 @@ class ContactProvider extends ChangeNotifier {
     contacts = await db.getFavoriteContacts();
     notifyListeners();
   }
+
+  Future<ContactModel> getContactById(int id) => db.getContactsById(id);
 }

@@ -5,6 +5,8 @@ import 'package:contact_application/utils/helper_function.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'DetailsPage.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -93,6 +95,9 @@ class _HomePageState extends State<HomePage> {
                   context.read<ContactProvider>().deleteSingleContact(contact.id!);
                 },
                 child: ListTile(
+                  onTap: () {
+                    Navigator.pushNamed(context, DetailsPage.routeName, arguments: contact);
+                  },
                   title: Text(contact.name),
                   trailing: IconButton(
                     onPressed: () {
