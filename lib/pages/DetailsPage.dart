@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../models/contact_model.dart';
+import '../utils/helper_function.dart';
 
 class DetailsPage extends StatelessWidget {
   const DetailsPage({super.key});
@@ -32,11 +34,32 @@ class DetailsPage extends StatelessWidget {
 
             ListTile(
               title: Text(contact.name),
-              trailing: IconButton(
-                onPressed: () {
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.edit),
+                  ),
+                ],
+              ),
+            ),
 
-                },
-                icon: const Icon(Icons.edit),
+            ListTile(
+              title: Text(contact.mobile),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    onPressed: () {_callNumber(context, contact);},
+                    icon: const Icon(Icons.call),
+                  ),
+
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.edit),
+                  ),
+                ],
               ),
             )
           ],
@@ -85,6 +108,15 @@ class DetailsPage extends StatelessWidget {
     final image = await ImagePicker().pickImage(source: type);
     if(image != null) {
       context.read<ContactProvider>().updateSingleContactValue(contactData.id!, colImage, image.path);
+    }
+  }
+
+  Future<void> _callNumber(BuildContext context, ContactModel contact) async {
+    final url = 'tel:${contact.mobile}';
+    if(await canLaunchUrlString(url)) {
+      await launchUrlString(url);
+    }else{
+      showMsg("Could not launch $url", context);
     }
   }
 

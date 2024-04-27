@@ -29,3 +29,7 @@ Future<bool?> showMyDialog(BuildContext context) async {
   );
 }
 
+void showMsg(String msg, BuildContext context) {
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
+}
+
