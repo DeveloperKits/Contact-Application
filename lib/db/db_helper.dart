@@ -16,10 +16,17 @@ class DbHelper {
     final dbPath = path.join(root, "contacts.db");
     return openDatabase(
         dbPath,
-        version: 1,
+        version: 2,
         onCreate: (db, version) {
           db.execute(_createTable);
         },
+
+      onUpgrade: (db, oldVersion, newVersion) {
+          if(oldVersion == 1 && newVersion == 2){
+            const sql = "alter table $tblContact add column $colImage text default ''";
+            db.execute(sql);
+          }
+      }
     );
   }
 

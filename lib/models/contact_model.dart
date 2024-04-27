@@ -4,6 +4,7 @@ class ContactModel{
   String mobile;
   String? email;
   String? address;
+  String? image;
   bool favorite;
 
   ContactModel({
@@ -12,6 +13,7 @@ class ContactModel{
     required this.mobile,
     this.email,
     this.address,
+    this.image,
     this.favorite = false
   });
 
@@ -21,6 +23,7 @@ class ContactModel{
       colMobile: mobile,
       colEmail: email,
       colAddress: address,
+      colImage: image,
       colFavorite: favorite ? 1 : 0
     };
 
@@ -37,6 +40,7 @@ class ContactModel{
     mobile: map[colMobile],
     email: map[colEmail],
     address: map[colAddress],
+    image: map[colImage],
     favorite: map[colFavorite] == 1 ? true : false,
   );
 }
@@ -47,4 +51,5 @@ const String colName = "name";
 const String colMobile = "mobile";
 const String colEmail = "email";
 const String colAddress = "address";
+const String colImage = "image";
 const String colFavorite = "favorite";
