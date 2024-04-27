@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:contact_application/provider/contact_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +28,33 @@ class DetailsPage extends StatelessWidget {
               final contactData = snapshot.data!;
               return ListView(
                 children: [
+                  SizedBox(
+                    height: 120,
+                    width: 120,
+                    child: Stack(
+                      fit: StackFit.expand,
+                      children: [
+                        contactData.image == null || contactData.image!.isEmpty?
+                        const CircleAvatar(
+                          backgroundImage: AssetImage('images/no_image_placeholder.png'),
+                        )
+                        : CircleAvatar(
+                          backgroundImage: FileImage(contactData.image! as File),
+                        ),
+
+                        SizedBox(
+                          height: 45,
+                          width: 45,
+                          child: FloatingActionButton(
+                            onPressed: () {
+
+                            },
+                            child: const Icon(Icons.camera),
+                          ),
+                        )
+                      ]
+                    ),
+                  ),
                   ListTile(
                     title: Text(contactData.name),
                     trailing: IconButton(
